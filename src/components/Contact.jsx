@@ -16,10 +16,23 @@ export default function Contact() {
   const handleSubmit = (e) => {
     e.preventDefault();
     setSubmitted(true);
+
+    const text = 
+`Halo Tim OHAIO Project, saya ingin mengajukan konsultasi rencana event bersama PT Ohaio Project Bersama:
+
+• Nama: ${formData.name}
+• Instansi / Brand: ${formData.organization}
+• No. WhatsApp / Telp: ${formData.phone}
+• Target Kota: ${formData.city}
+• Jenis Kebutuhan Event: ${formData.eventType}
+• Rencana & Catatan: ${formData.message || '-'}`;
+
+    const waUrl = `https://wa.me/6285155399101?text=${encodeURIComponent(text)}`;
+    window.open(waUrl, '_blank', 'noopener,noreferrer');
   };
 
-  const whatsappMessage = encodeURIComponent(
-    `Halo OHAIO Project, saya ingin konsultasi rencana event bersama PT Ohaio Project Bersama.`
+  const quickWaMessage = encodeURIComponent(
+    `Halo Tim OHAIO Project, saya ingin konsultasi rencana event bersama PT Ohaio Project Bersama.`
   );
 
   return (
@@ -47,7 +60,7 @@ export default function Contact() {
             {/* Quick Contact Cards */}
             <div className="space-y-2.5 sm:space-y-3 pt-3.5 sm:pt-4 border-t border-white/10 font-mono text-xs">
               <a
-                href={`https://wa.me/6285155399101?text=${whatsappMessage}`}
+                href={`https://wa.me/6285155399101?text=${quickWaMessage}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="p-3.5 sm:p-4 rounded-xl sm:rounded-2xl bg-[#14161c] border border-white/10 hover:border-[#e5243b] flex items-center justify-between transition-all group card-hover shadow-lg"
@@ -141,19 +154,54 @@ export default function Contact() {
 
               {submitted ? (
                 <div className="p-6 sm:p-8 rounded-2xl bg-[#181a22] border border-[#e5243b]/60 text-center space-y-4">
-                  <CheckCircle2 className="w-10 h-10 sm:w-12 sm:h-12 text-[#ff4d61] mx-auto animate-bounce" />
-                  <div className="font-display text-xl sm:text-2xl font-bold text-white">
-                    TERIMA KASIH!
+                  <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 mx-auto">
+                    <CheckCircle2 className="w-7 h-7 sm:w-8 sm:h-8 animate-bounce" />
                   </div>
-                  <p className="font-body text-xs sm:text-sm text-[#94a3b8] max-w-md mx-auto leading-relaxed">
-                    Pesan Anda telah kami terima. Tim produser kami akan segera menghubungi Anda dalam kurun waktu 1x24 jam kerja.
+                  <div className="font-display text-xl sm:text-2xl font-bold text-white">
+                    PROPOSAL DISIAPKAN!
+                  </div>
+                  <p className="font-body text-xs sm:text-sm text-[#cbd5e1] max-w-md mx-auto leading-relaxed">
+                    Data Anda telah otomatis diformat untuk WhatsApp resmi <strong className="text-white">PT Ohaio Project Bersama</strong>. Jika chat WhatsApp tidak terbuka otomatis, klik tombol di bawah:
                   </p>
-                  <button
-                    onClick={() => setSubmitted(false)}
-                    className="font-mono text-xs text-[#ff4d61] underline hover:text-white pt-2 uppercase font-semibold"
-                  >
-                    Kirim pesan lain
-                  </button>
+                  
+                  <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-3">
+                    <a
+                      href={`https://wa.me/6285155399101?text=${encodeURIComponent(
+`Halo Tim OHAIO Project, saya ingin mengajukan konsultasi rencana event bersama PT Ohaio Project Bersama:
+
+• Nama: ${formData.name}
+• Instansi / Brand: ${formData.organization}
+• No. WhatsApp / Telp: ${formData.phone}
+• Target Kota: ${formData.city}
+• Jenis Kebutuhan Event: ${formData.eventType}
+• Rencana & Catatan: ${formData.message || '-'}`
+                      )}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="px-6 py-3 rounded-full bg-emerald-600 hover:bg-emerald-500 text-white font-mono text-xs font-bold uppercase tracking-wider shadow-lg flex items-center gap-2 transition-all hover:scale-105"
+                    >
+                      <MessageSquare className="w-4 h-4" />
+                      <span>Buka Chat WhatsApp</span>
+                      <ArrowUpRight className="w-3.5 h-3.5" />
+                    </a>
+
+                    <button
+                      onClick={() => {
+                        setSubmitted(false);
+                        setFormData({
+                          name: '',
+                          organization: '',
+                          phone: '',
+                          city: '',
+                          eventType: 'School & Youth Activation',
+                          message: ''
+                        });
+                      }}
+                      className="px-5 py-3 rounded-full bg-white/5 hover:bg-white/10 text-[#94a3b8] hover:text-white font-mono text-xs uppercase tracking-wider transition-colors"
+                    >
+                      Kirim Pesan Lain
+                    </button>
+                  </div>
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5">
